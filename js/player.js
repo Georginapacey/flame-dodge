@@ -14,7 +14,6 @@ function Player(ctx) {
 
 }
 
-
 Player.prototype.draw = function() {
     this.ctx.drawImage(
         this.img,
@@ -22,13 +21,13 @@ Player.prototype.draw = function() {
         this.y,
         this.w,
         this.h 
-
     )
 }
 
-
 Player.prototype.move = function(){
-    this.y += this.vy;
+  
+    this.vy = 15;
+    this.vx = 15;
 }
 
 Player.prototype.TOP = 38;
@@ -39,16 +38,54 @@ Player.prototype.RIGHT = 39;
  Player.prototype.onKeyDown = function(code) {
     switch(code) {
         case this.TOP:
-        this.vy = -10;
+        this.moveUp();
+        break;
+        case this.DOWN:
+        this.moveDown();
+        break;
+        case this.LEFT:
+        this.moveLeft();
+        break;
+        case this.RIGHT:
+        this.moveRight();
         break;
     }
 } 
 
-
 Player.prototype.onKeyUp = function(code) {
     switch(code) {
         case this.TOP:
+        case this.DOWN:
         this.vy = 0;
         break;
+        case this.LEFT:
+        case this.RIGHT:
+        this.vx = 0;
+        break;
+        
+    }
+}
+
+Player.prototype.moveUp = function() {
+    if (this.y > 0) {
+        this.y -= this.vy;
+    }
+}
+
+Player.prototype.moveDown = function() {
+    if ((this.y + this.h) < this.ctx.canvas.height) {
+        this.y += this.vy;
+    }
+}
+
+Player.prototype.moveLeft = function() {
+    if (this.x > 0) {
+        this.x -= this.vx;
+    }
+}
+
+Player.prototype.moveRight = function() {
+    if ((this.x + this.w) < this.ctx.canvas.width) {
+        this.x += this.vx;
     }
 }

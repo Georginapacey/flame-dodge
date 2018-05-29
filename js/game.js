@@ -1,6 +1,7 @@
 function Game(canvasElement) {
     this.ctx = canvasElement.getContext("2d");
     this.player = new Player(this.ctx);
+    this.obstacleCollection = new ObstacleCollection(this.ctx);
 
     this.intervalId = null;
 
@@ -23,6 +24,7 @@ Game.prototype.start = function() {
 
 Game.prototype.drawAll = function() {
     this.player.draw();
+    this.obstacleCollection.draw();
 }
 
 Game.prototype.moveAll = function() {
@@ -33,11 +35,6 @@ Game.prototype.clear = function() {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 };
 
-/* Game.prototype.setKeyboardListeners = function() {
-    document.onKeyDown = function(event) {
-        this.player.onKeyDown(event.keyCode)
-    }
-}  */
 
 Game.prototype.setKeyboardListeners = function() {
     document.onkeydown = function(event) {
