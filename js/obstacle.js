@@ -1,7 +1,6 @@
 function Obstacle(ctx, x, y) {
     this.ctx = ctx;
 
-    this.x = x;
     this.y = y;
 
     this.w = this.ctx.canvas.width / 20;
@@ -12,6 +11,10 @@ function Obstacle(ctx, x, y) {
 
     this.img = new Image();
     this.img.src = "img/tinder.svg";
+
+    this.x = x;
+
+    
 }
 
 Obstacle.prototype.draw = function(){
@@ -23,3 +26,10 @@ Obstacle.prototype.draw = function(){
         this.h
     )
 };
+
+
+//how to I get this to be my x?
+Obstacle.prototype.randomPosition = function(min,max){   
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
