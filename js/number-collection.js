@@ -17,28 +17,3 @@ NumberCollection.prototype.draw = function() {
     
 }
 
-/* NumberCollection.prototype.numbersCaughtTotal = function() {
-
-    for (var i = 0; i < this.numbers.length; i++) {
-        if (true){
-            this.numbersCollected++;
-        }
-        console.log(this.numbersCollected);
-    }
-}; */
-    
-NumberCollection.prototype.numbersCaught = function(p) {
-
-    return this.numbers.some(function(n, i){
-        return (n.x <= p.x + p.w) && (p.x <= n.x + n.r) && (p.y + p.h >= n.y) && (p.y <= n.y + n.r);
-                /* var nx = (n.x <= p.x + p.w) && (p.x <= n.x + n.r);
-        var ny = (p.y + p.h >= n.y) && (p.y <= n.y + n.r);
-        
-        return nx && ny  */
-    });
-    
-};
-
-/* NumberCollection.prototype.remove = function(index){
-    this.numbers.splice(i, 1);
-} */

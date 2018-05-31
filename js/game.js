@@ -1,11 +1,12 @@
-function Game(canvasElement) {
+function Game(canvasElement, obstacleAmount, numberAmount) {
     this.ctx = canvasElement.getContext("2d");
     this.player = new Player(this.ctx);
     //change second argument to level number
-    this.obstacleCollection = new ObstacleCollection(this.ctx, 1);
-    this.numberCollection = new NumberCollection(this.ctx, 4);
-
-
+    this.obstacleCollection = new ObstacleCollection(this.ctx, obstacleAmount);
+    this.numberCollection = new NumberCollection(this.ctx, numberAmount);
+    this.canvasElement = canvasElement;
+    this.obstacleAmount = obstacleAmount;
+    this.numberAmount = numberAmount;
     this.intervalId = null;
     this.setKeyboardListeners();
 
@@ -17,8 +18,6 @@ Game.prototype.start = function() {
         this.drawAll();
         
         this.checkGameOver();
-
-        /*  this.nextLevel();*/
 
         this.moveAll();
 
@@ -41,15 +40,6 @@ Game.prototype.checkGameOver = function() {
         this.gameOver();
     }
 };
-/* Game.prototype.nextLevel = function() {
-    if (this.numberCollection.numbersCaught(this.player)) {
-        this.numberCollection.numbersCollected++;
-        console.log(this.numberCollection.numbersCollected)
-    }
-
-} */
-
-
 
 Game.prototype.gameOver = function() {
     clearInterval(this.intervalId);
@@ -59,18 +49,32 @@ Game.prototype.gameOver = function() {
     }
 };
 
+Game.prototype.stop = function() {
+    clearInterval(this.intervalId);
+};
+
 Game.prototype.clear = function() {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
-    this.numberCollection.numbers.forEach((number ,i) => {
+    this.numberCollection.numbers.forEach((number, i) => {
         if(
             (number.x <= this.player.x + this.player.w) && (this.player.x <= number.x + number.r) && (this.player.y + this.player.h >= number.y) && (this.player.y <= number.y + number.r)
         ){
             this.numberCollection.numbers.splice(i,1);
+            this.numberCollection.numbersCollected++;
+            this.nextLevel();
         }
     });
     
 };
+
+Game.prototype.nextLevel = function() {
+    if (this.numberCollection.numbers.length <= 0) {
+        this.stop();
+        new Game(this.canvasElement, this.obstacleAmount + 1, this.numberAmount + 1).start();
+    }
+};
+
 
 Game.prototype.setKeyboardListeners = function() {
     document.onkeydown = function(event) {
