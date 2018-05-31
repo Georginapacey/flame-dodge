@@ -1,12 +1,14 @@
-function Number(ctx, number) {
+function Number(ctx, x, y) {
 
     this.ctx = ctx;
-    this.x = 300;
-    this.y = 300;
+
+    this.x = x ? x : Math.floor(Math.random()* this.ctx.canvas.width);
+    this.y = y ? y :Math.floor(Math.random()* this.ctx.canvas.height);
+
     this.radius = 20;
     this.r = this.radius;
     
-    this.number = number;
+    this.number = "1";
     this.textStyle = "20px sans-serif";
     
 }
@@ -33,4 +35,5 @@ Number.prototype.draw = function(){
 
 
 };
+
 
