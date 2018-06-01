@@ -1,8 +1,8 @@
 function Game(canvasElement, obstacleAmount, numberAmount) {
     this.ctx = canvasElement.getContext("2d");
     this.player = new Player(this.ctx);
-    //change second argument to level number
-    this.obstacleCollection = new ObstacleCollection(this.ctx, obstacleAmount);
+    this.margin = 20;
+    this.obstacleCollection = new ObstacleCollection(this.ctx, obstacleAmount, this.player, this.margin);
     this.numberCollection = new NumberCollection(this.ctx, numberAmount);
     this.canvasElement = canvasElement;
     this.obstacleAmount = obstacleAmount;
@@ -71,6 +71,7 @@ Game.prototype.clear = function() {
 Game.prototype.nextLevel = function() {
     if (this.numberCollection.numbers.length <= 0) {
         this.stop();
+        //is it ok to call a new Game within game prototype
         new Game(this.canvasElement, this.obstacleAmount + 1, this.numberAmount + 1).start();
     }
 };
