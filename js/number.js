@@ -2,11 +2,11 @@ function Number(ctx, x, y) {
 
     this.ctx = ctx;
 
-    this.x = x ? x : Math.floor(Math.random()* this.ctx.canvas.width);
-    this.y = y ? y :Math.floor(Math.random()* this.ctx.canvas.height);
-
     this.radius = 20;
     this.r = this.radius;
+
+    this.x = x ? x : Math.floor(Math.random()* ((this.ctx.canvas.width - this.r) - this.r) + this.r);
+    this.y = y ? y :Math.floor(Math.random()* ((this.ctx.canvas.height - this.r) - this.r) + this.r);
     
     this.number = "1";
     this.textStyle = "20px sans-serif";

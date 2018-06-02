@@ -1,12 +1,16 @@
-function NumberCollection(ctx, numbersCount) {
-    this.ctx = ctx;
+function NumberCollection(pCtx, pNumbersCount, pPlayer, pMargin) {
+    this.ctx = pCtx;
     
     this.numbers = [];
     this.numbersCollected = 0;
 
-    for (var i = 0; i < numbersCount; i++) {
-        this.numbers.push(new Number(this.ctx));
-    }
+    this.numbersCount = pNumbersCount;
+
+    this.player = pPlayer;
+    
+    this.margin = pMargin;
+
+    this.createNumbers();
 
 }
 
@@ -17,3 +21,30 @@ NumberCollection.prototype.draw = function() {
     
 }
 
+NumberCollection.prototype.createNumbers = function() {
+    var numberAux;
+    for (var i = 0; i < this.numbersCount; i++) {
+        numberAux = new Number(this.ctx);
+        while (!this.isFarFromPlayer(numberAux, this.player)) {
+            numberAux = new Number(this.ctx);
+        }
+        this.numbers.push(numberAux);
+        
+
+    }
+    return this.numbers;       
+}
+
+NumberCollection.prototype.isFarFromPlayer = function(n, p) {   
+
+    var initialPlayerBoundaryX = p.x - this.margin;
+    var initialPlayerBoundaryY = p.y - this.margin;
+    var finalPlayerBoundaryX = p.x + p.w + this.margin;
+    var finalPlayerBoundaryY = p.y + p.h + this.margin;
+
+    var cx = (n.x <= finalPlayerBoundaryX) && (initialPlayerBoundaryX <= n.x + n.r);
+    var cy = (finalPlayerBoundaryY >= n.y) && (initialPlayerBoundaryY <= n.y + n.r);
+
+    return !(cx && cy);
+
+}

@@ -3,7 +3,7 @@ function Game(canvasElement, obstacleAmount, numberAmount) {
     this.player = new Player(this.ctx);
     this.margin = 20;
     this.obstacleCollection = new ObstacleCollection(this.ctx, obstacleAmount, this.player, this.margin);
-    this.numberCollection = new NumberCollection(this.ctx, numberAmount);
+    this.numberCollection = new NumberCollection(this.ctx, numberAmount, this.player, this.margin);
     this.canvasElement = canvasElement;
     this.obstacleAmount = obstacleAmount;
     this.numberAmount = numberAmount;

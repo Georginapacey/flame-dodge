@@ -7,7 +7,6 @@ function ObstacleCollection(pCtx, pObstaclesCount, pPlayer, pMargin) {
 
     this.player = pPlayer;
 
-    
     this.margin = pMargin;
 
     this.createObstacles();
@@ -34,7 +33,6 @@ ObstacleCollection.prototype.checkCollisions = function(p) {
 
     
 }
-    
 
 ObstacleCollection.prototype.createObstacles = function() {
     var obstacleAux;
@@ -49,6 +47,7 @@ ObstacleCollection.prototype.createObstacles = function() {
     }
     return this.obstacles;       
 }
+
 ObstacleCollection.prototype.isFarFromPlayer = function(o, p) {   
 
     var initialPlayerBoundaryX = p.x - this.margin;

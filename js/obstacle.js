@@ -1,11 +1,11 @@
 function Obstacle(ctx, x, y) {
     this.ctx = ctx;
 
-    this.x = x ? x : Math.floor(Math.random()* this.ctx.canvas.width);
-    this.y = y ? y : Math.floor(Math.random()* this.ctx.canvas.height);
-
     this.w = this.ctx.canvas.width / 20;
     this.h = this.w * 1.5;
+
+    this.x = x ? x : Math.floor(Math.random()* ((this.ctx.canvas.width - this.w) - this.w) + this.w );
+    this.y = y ? y : Math.floor(Math.random()* ((this.ctx.canvas.height - this.h) - this.h) + this.h);
 
     this.vx = 0;
     this.vy = 0;
