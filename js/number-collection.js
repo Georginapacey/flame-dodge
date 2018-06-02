@@ -24,9 +24,9 @@ NumberCollection.prototype.draw = function() {
 NumberCollection.prototype.createNumbers = function() {
     var numberAux;
     for (var i = 0; i < this.numbersCount; i++) {
-        numberAux = new Number(this.ctx);
+        numberAux = new Number(this.ctx, i + 1);
         while (!this.isFarFromPlayer(numberAux, this.player)) {
-            numberAux = new Number(this.ctx);
+            numberAux = new Number(this.ctx, i + 1);
         }
         this.numbers.push(numberAux);
         

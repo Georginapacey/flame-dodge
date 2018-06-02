@@ -17,6 +17,7 @@ Game.prototype.start = function() {
         this.drawAll();
         
         this.checkGameOver();
+        this.nextLevel();
 
         this.moveAll();
 
@@ -57,13 +58,22 @@ Game.prototype.stop = function() {
 Game.prototype.clear = function() {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
+
+    
     this.numberCollection.numbers.forEach((number, i) => {
+
+        
+        
         if(
             (number.x <= this.player.x + this.player.w) && (this.player.x <= number.x + number.r) && (this.player.y + this.player.h >= number.y) && (this.player.y <= number.y + number.r)
         ){
-            this.numberCollection.numbers.splice(i,1);
-            this.numberCollection.numbersCollected++;
-            this.nextLevel();
+            if (i == 0){
+                this.numberCollection.numbers.splice(i,1);
+                this.numberCollection.numbersCollected++;
+                console.log(this.numberCollection.numbers.length);
+            }
+            
+            
         }
     });
     

@@ -3,6 +3,8 @@ function Player(ctx) {
     this.w = this.ctx.canvas.width / 10;
     this.h = this.w;
 
+    this.direction = 'default';
+
     this.x = (this.ctx.canvas.width / 2) - (this.w / 2);
     this.y = this.x;
 
@@ -24,10 +26,27 @@ Player.prototype.draw = function() {
     )
 }
 
-Player.prototype.move = function(){
-  
-    this.vy = 15;
-    this.vx = 15;
+Player.prototype.checkBoundaries = function(){
+    if(this.x <= 0) this.x = 0
+    if(this.x + this.w >= this.ctx.canvas.width) this.x = this.ctx.canvas.width - this.w;
+    if(this.y <= 0) this.y = 0
+    if(this.y + this.h >= this.ctx.canvas.height) this.y = this.ctx.canvas.height - this.h;
+
+}
+
+Player.prototype.move = function() {
+    this.checkBoundaries();
+    this.y += this.vy;
+    this.x += this.vx;
+
+    if(this.direction == 'up') {
+        this.vy = -3
+    } 
+    if(this.direction == 'down') {
+        this.vy = 3
+    }
+    if(this.direction == 'left') this.vx = -3
+    if(this.direction == 'right') this.vx = 3
 }
 
 Player.prototype.TOP = 38;
@@ -37,17 +56,21 @@ Player.prototype.RIGHT = 39;
 
  Player.prototype.onKeyDown = function(code) {
     switch(code) {
-        case this.TOP:
-        this.moveUp();
+        case this.TOP: 
+        this.direction = 'up'
+        //this.moveUp();
         break;
-        case this.DOWN:
-        this.moveDown();
+        case this.DOWN: 
+        this.direction = 'down'
+        //this.moveDown();
         break;
-        case this.LEFT:
-        this.moveLeft();
+        case this.LEFT: 
+        this.direction = 'left'
+        //this.moveLeft();
         break;
-        case this.RIGHT:
-        this.moveRight();
+        case this.RIGHT: 
+        this.direction = 'right'
+        //this.moveRight();
         break;
     }
 } 
@@ -63,29 +86,5 @@ Player.prototype.onKeyUp = function(code) {
         this.vx = 0;
         break;
         
-    }
-}
-
-Player.prototype.moveUp = function() {
-    if (this.y > 0) {
-        this.y -= this.vy;
-    }
-}
-
-Player.prototype.moveDown = function() {
-    if ((this.y + this.h) < this.ctx.canvas.height) {
-        this.y += this.vy;
-    }
-}
-
-Player.prototype.moveLeft = function() {
-    if (this.x > 0) {
-        this.x -= this.vx;
-    }
-}
-
-Player.prototype.moveRight = function() {
-    if ((this.x + this.w) < this.ctx.canvas.width) {
-        this.x += this.vx;
     }
 }

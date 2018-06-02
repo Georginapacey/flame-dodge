@@ -12,8 +12,6 @@ function ObstacleCollection(pCtx, pObstaclesCount, pPlayer, pMargin) {
     this.createObstacles();
 }
 
-
-
 ObstacleCollection.prototype.draw = function() {
     this.obstacles.forEach(function(o) {
         o.draw();
@@ -25,7 +23,6 @@ ObstacleCollection.prototype.move = function() {
         o.move();
     });
 };
-
 
 ObstacleCollection.prototype.checkCollisions = function(p) {
     
