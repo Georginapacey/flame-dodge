@@ -9,7 +9,6 @@ function Game(canvasElement, obstacleAmount, numberAmount) {
     this.numberAmount = numberAmount;
     this.intervalId = null;
     this.setKeyboardListeners();
-
 }
 
 Game.prototype.start = function() {
@@ -33,6 +32,8 @@ Game.prototype.drawAll = function() {
 
 Game.prototype.moveAll = function() {
     this.player.move();
+    this.obstacleCollection.move();
+
 }
 
 Game.prototype.checkGameOver = function() {

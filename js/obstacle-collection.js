@@ -20,6 +20,11 @@ ObstacleCollection.prototype.draw = function() {
     });
 }
 
+ObstacleCollection.prototype.move = function() {
+    this.obstacles.forEach(function(o) {
+        o.move();
+    });
+};
 
 
 ObstacleCollection.prototype.checkCollisions = function(p) {
@@ -31,7 +36,6 @@ ObstacleCollection.prototype.checkCollisions = function(p) {
         return cx && cy 
     });
 
-    
 }
 
 ObstacleCollection.prototype.createObstacles = function() {
@@ -42,8 +46,6 @@ ObstacleCollection.prototype.createObstacles = function() {
             obstacleAux = new Obstacle(this.ctx);
         }
         this.obstacles.push(obstacleAux);
-        
-
     }
     return this.obstacles;       
 }
