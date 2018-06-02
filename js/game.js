@@ -57,22 +57,18 @@ Game.prototype.stop = function() {
 
 Game.prototype.clear = function() {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-
-
     
     this.numberCollection.numbers.forEach((number, i) => {
 
-        
-        
         if(
             (number.x <= this.player.x + this.player.w) && (this.player.x <= number.x + number.r) && (this.player.y + this.player.h >= number.y) && (this.player.y <= number.y + number.r)
         ){
+            //check if collided number is the first one in the list
             if (i == 0){
                 this.numberCollection.numbers.splice(i,1);
                 this.numberCollection.numbersCollected++;
                 console.log(this.numberCollection.numbers.length);
             }
-            
             
         }
     });
