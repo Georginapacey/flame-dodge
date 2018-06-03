@@ -1,5 +1,6 @@
 function Game(canvasElement, obstacleAmount, numberAmount) {
     this.ctx = canvasElement.getContext("2d");
+    this.background = new Background(this.ctx);
     this.player = new Player(this.ctx);
     this.margin = 20;
     this.obstacleCollection = new ObstacleCollection(this.ctx, obstacleAmount, this.player, this.margin);
@@ -25,6 +26,7 @@ Game.prototype.start = function() {
 };
 
 Game.prototype.drawAll = function() {
+    this.background.draw();
     this.player.draw();
     this.obstacleCollection.draw();
     this.numberCollection.draw();

@@ -2,7 +2,7 @@ function Obstacle(ctx, x, y) {
     this.ctx = ctx;
 
     this.w = this.ctx.canvas.width / 10;
-    this.h = this.w * 4;
+    this.h = this.w;
 
     this.x = x ? x : Math.floor(Math.random()* ((this.ctx.canvas.width - this.w) - this.w) + this.w );
     this.y = y ? y : Math.floor(Math.random()* ((this.ctx.canvas.height - this.h) - this.h) + this.h);
@@ -11,11 +11,11 @@ function Obstacle(ctx, x, y) {
     this.vy = Math.random()* (1 - 0.5) + 0.5;
 
     this.img = new Image();
-    this.img.src = "img/flame-sprite.jpg";
+    this.img.src = "img/flame-sprite.png";
 
-    this.img.frames = 4;
+    this.img.frames = 5;
     this.img.frameIndex = 0;
-    this.img.animateEvery = 10;
+    this.img.animateEvery = 5;
 
     this.drawCount = 0;
 
