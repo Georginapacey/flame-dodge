@@ -26,9 +26,9 @@ Number.prototype.draw = function(){
   
     this.ctx.closePath();
     this.ctx.stroke();
-    this.ctx.fillStyle ="#fff";
+    this.ctx.fillStyle ="#0080DA";
     this.ctx.fill();
-    this.ctx.fillStyle = "#000";
+    this.ctx.fillStyle = "#fff";
     this.ctx.font = this.textStyle;
 
     this.ctx.fillText(this.number, (this.x - 5), (this.y + 5), 100);

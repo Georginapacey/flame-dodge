@@ -1,5 +1,6 @@
 function Game(canvasElement, obstacleAmount, numberAmount) {
     this.ctx = canvasElement.getContext("2d");
+    this.background = new Background(this.ctx);
     this.player = new Player(this.ctx);
     this.margin = 20;
     this.obstacleCollection = new ObstacleCollection(this.ctx, obstacleAmount, this.player, this.margin);
@@ -25,6 +26,7 @@ Game.prototype.start = function() {
 };
 
 Game.prototype.drawAll = function() {
+    this.background.draw();
     this.player.draw();
     this.obstacleCollection.draw();
     this.numberCollection.draw();
@@ -57,22 +59,18 @@ Game.prototype.stop = function() {
 
 Game.prototype.clear = function() {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-
-
     
     this.numberCollection.numbers.forEach((number, i) => {
 
-        
-        
         if(
             (number.x <= this.player.x + this.player.w) && (this.player.x <= number.x + number.r) && (this.player.y + this.player.h >= number.y) && (this.player.y <= number.y + number.r)
         ){
+            //check if collided number is the first one in the list
             if (i == 0){
                 this.numberCollection.numbers.splice(i,1);
                 this.numberCollection.numbersCollected++;
                 console.log(this.numberCollection.numbers.length);
             }
-            
             
         }
     });
