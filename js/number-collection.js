@@ -42,8 +42,8 @@ NumberCollection.prototype.isFarFromPlayer = function(n, p) {
     var finalPlayerBoundaryX = p.x + p.w + this.margin;
     var finalPlayerBoundaryY = p.y + p.h + this.margin;
 
-    var cx = (n.x <= finalPlayerBoundaryX) && (initialPlayerBoundaryX <= n.x + n.r);
-    var cy = (finalPlayerBoundaryY >= n.y) && (initialPlayerBoundaryY <= n.y + n.r);
+    var cx = (n.x <= finalPlayerBoundaryX) && (initialPlayerBoundaryX <= n.x + n.w);
+    var cy = (finalPlayerBoundaryY >= n.y) && (initialPlayerBoundaryY <= n.y + n.w);
 
     return !(cx && cy);
 

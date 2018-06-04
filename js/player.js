@@ -12,21 +12,30 @@ function Player(ctx) {
     this.vy = 0;
 
     this.img = new Image();
-    this.img.src = "img/bubble.svg";
+    this.img.src = "img/bubble-sprite.svg";
+
+    this.img.frames = 3;
+    this.img.frameIndex = 0;
 
 }
 
 Player.prototype.draw = function() {
+
     this.ctx.drawImage(
         this.img,
+        this.img.frameIndex * this.img.width / this.img.frames,
+        0,
+        this.img.width / this.img.frames,
+        this.img.height,
         this.x,
         this.y,
         this.w,
-        this.h 
+        this.h
     )
 }
 
 Player.prototype.checkBoundaries = function(){
+
     if(this.x <= 0) this.x = 0
     if(this.x + this.w >= this.ctx.canvas.width) this.x = this.ctx.canvas.width - this.w;
     if(this.y <= 0) this.y = 0
