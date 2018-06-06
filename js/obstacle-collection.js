@@ -22,14 +22,15 @@ ObstacleCollection.prototype.move = function() {
     this.obstacles.forEach(function(o) {
         o.move();
     });
-};
+}
 
 ObstacleCollection.prototype.checkCollisions = function(p) {
     
     return this.obstacles.some(function(o){
         
-        var cx = (o.x <= p.x + p.w) && (p.x <= o.x + o.w);
-        var cy = (p.y + p.h >= o.y) && (p.y <= o.y + o.h);
+        //TO FIX: lots of magic numbers because otherwise the collision happens from too far away
+        var cx = (o.x <= p.x + (p.w - 15)) && (p.x <= o.x + (o.w - 25));
+        var cy = (p.y + (p.w - 30) >= o.y) && (p.y <= o.y + (o.h - 25));
         return cx && cy 
     });
 

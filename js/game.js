@@ -68,8 +68,8 @@ Game.prototype.clear = function() {
             //check if collided number is the first one in the list
             if (i == 0){
                 //later we will use this to change emotion
-                //this.player.img.frameIndex = 1;
-                //this.delay();
+                this.player.img.frameIndex = 1;
+                this.delay();
                 this.numberCollection.numbers.splice(i,1);
                 this.numberCollection.numbersCollected++;
             }
@@ -79,11 +79,11 @@ Game.prototype.clear = function() {
     
 };
 
-/* Game.prototype.delay = function() {
+ Game.prototype.delay = function() {
     setTimeout(function() { 
         this.player.img.frameIndex = 0;
     }.bind(this), 500);
-} */
+} 
 Game.prototype.nextLevel = function() {
     if (this.numberCollection.numbers.length <= 0) {
         this.stop();

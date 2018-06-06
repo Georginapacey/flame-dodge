@@ -17,13 +17,25 @@ function Player(ctx) {
     this.img.frames = 3;
     this.img.frameIndex = 0;
 
+    this.animateEvery = 5;
+    this.initialLimit = 4;
+    this.limit = this.initialLimit;
+    this.growing = true;
+
+    this.drawCount = 0;
+
 }
 
 Player.prototype.draw = function() {
+        this.drawCount++;
+    //to rotate
+    /*  this.ctx.save();
+    this.ctx.translate(this.x, this.y);
+    this.ctx.rotate(220 * Math.PI/180);  */ 
 
     this.ctx.drawImage(
         this.img,
-        this.img.frameIndex * this.img.width / this.img.frames,
+        (this.img.frameIndex * this.img.width / this.img.frames),
         0,
         this.img.width / this.img.frames,
         this.img.height,
@@ -32,6 +44,10 @@ Player.prototype.draw = function() {
         this.w,
         this.h
     )
+
+    // end rotate
+    //this.ctx.restore();
+
 }
 
 Player.prototype.checkBoundaries = function(){
@@ -44,6 +60,13 @@ Player.prototype.checkBoundaries = function(){
 }
 
 Player.prototype.move = function() {
+    
+    if(this.drawCount % this.animateEvery === 0){
+        this.animate();
+
+        this.drawCount = 0;
+    } 
+
     this.checkBoundaries();
     this.y += this.vy;
     this.x += this.vx;
@@ -57,6 +80,45 @@ Player.prototype.move = function() {
     if(this.direction == 'left') this.vx = -3
     if(this.direction == 'right') this.vx = 3
 }
+
+
+ Player.prototype.animate = function() {
+    if (this.limit > 0 && this.growing) {
+        this.limit--;
+        this.w++;
+        this.x--;
+        this.w++;
+        this.h--;
+        this.y++;
+        this.h--;
+    } else if (this.limit == 0) {
+        this.limit++;
+        this.w--;
+        this.x++;
+        this.w--;
+        this.h++;
+        this.y--;
+        this.h++;
+        this.growing = false;
+    } else if (this.limit > 0 && this.limit < this.initialLimit && this.growing == false ) {
+        this.limit++;
+        this.w--;
+        this.x++;
+        this.w--;
+        this.h++;
+        this.y--;
+        this.h++;
+    } else if (this.limit == this.initialLimit && this.growing == false) {
+        this.growing = true;
+        this.limit--;
+        this.w++;
+        this.x--;
+        this.w++;
+        this.h--;
+        this.y++;
+        this.h--;
+    }
+}; 
 
 Player.prototype.TOP = 38;
 Player.prototype.DOWN = 40;

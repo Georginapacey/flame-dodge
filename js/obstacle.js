@@ -4,7 +4,7 @@ function Obstacle(ctx, x, y) {
     this.w = this.ctx.canvas.width / 10;
     this.h = this.w;
 
-    this.x = x ? x : Math.floor(Math.random()* ((this.ctx.canvas.width - this.w) - this.w) + this.w );
+    this.x = x ? x : Math.floor(Math.random()* ((this.ctx.canvas.width - this.w) - this.w) + this.w);
     this.y = y ? y : Math.floor(Math.random()* ((this.ctx.canvas.height - this.h) - this.h) + this.h);
 
     this.vx = Math.random()* (1 - 0.5) + 0.5;
@@ -45,8 +45,8 @@ Obstacle.prototype.move = function(){
     }
 
     this.x += this.vx;
-
-    if (this.x + this.w > this.ctx.canvas.width ||
+    //TO FIX: -10 because image has it's own padding?
+    if (this.x + (this.w - 10) > this.ctx.canvas.width ||
         this.x < 0) {
       this.vx *= -1;
     }
