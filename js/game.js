@@ -63,13 +63,15 @@ Game.prototype.clear = function() {
     this.numberCollection.numbers.forEach((number, i) => {
 
         if(
-            (number.x <= this.player.x + this.player.w) && (this.player.x <= number.x + number.r) && (this.player.y + this.player.h >= number.y) && (this.player.y <= number.y + number.r)
+            (number.x <= this.player.x + this.player.w) && (this.player.x <= number.x + number.w) && (this.player.y + this.player.h >= number.y) && (this.player.y <= number.y + number.w)
         ){
             //check if collided number is the first one in the list
             if (i == 0){
+                //later we will use this to change emotion
+                this.player.img.frameIndex = 1;
+                this.delay();
                 this.numberCollection.numbers.splice(i,1);
                 this.numberCollection.numbersCollected++;
-                console.log(this.numberCollection.numbers.length);
             }
             
         }
@@ -77,6 +79,11 @@ Game.prototype.clear = function() {
     
 };
 
+ Game.prototype.delay = function() {
+    setTimeout(function() { 
+        this.player.img.frameIndex = 0;
+    }.bind(this), 500);
+} 
 Game.prototype.nextLevel = function() {
     if (this.numberCollection.numbers.length <= 0) {
         this.stop();
@@ -95,4 +102,3 @@ Game.prototype.setKeyboardListeners = function() {
     }.bind(this);
 
 };
-
