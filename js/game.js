@@ -1,4 +1,4 @@
-function Game(canvasElement, obstacleAmount, numberAmount) {
+function Game(canvasElement, obstacleAmount, numberAmount, pScore) {
     this.ctx = canvasElement.getContext("2d");
     this.background = new Background(this.ctx);
     this.player = new Player(this.ctx);
@@ -10,6 +10,7 @@ function Game(canvasElement, obstacleAmount, numberAmount) {
     this.numberAmount = numberAmount;
     this.intervalId = null;
     this.setKeyboardListeners();
+    this.score = pScore == null ? 0 : pScore;
 }
 
 Game.prototype.start = function() {
@@ -20,7 +21,10 @@ Game.prototype.start = function() {
         this.checkGameOver();
         this.nextLevel();
 
+        
         this.moveAll();
+
+        
 
     }.bind(this), 16);
 };
@@ -40,8 +44,14 @@ Game.prototype.moveAll = function() {
 }
 
 Game.prototype.checkGameOver = function() {
+
     if (this.obstacleCollection.checkCollisions(this.player)) {
-        this.gameOver();
+        this.player.img.frameIndex = 2;
+        this.delay();
+        setTimeout(function() { 
+            this.gameOver();
+        }.bind(this), 100);
+        
     }
 };
 
@@ -72,12 +82,15 @@ Game.prototype.clear = function() {
                 this.delay();
                 this.numberCollection.numbers.splice(i,1);
                 this.numberCollection.numbersCollected++;
+                this.score++;                
             }
             
         }
     });
     
 };
+
+
 
  Game.prototype.delay = function() {
     setTimeout(function() { 
@@ -88,7 +101,7 @@ Game.prototype.nextLevel = function() {
     if (this.numberCollection.numbers.length <= 0) {
         this.stop();
         //is it ok to call a new Game within game prototype
-        new Game(this.canvasElement, this.obstacleAmount + 1, this.numberAmount + 1).start();
+        new Game(this.canvasElement, this.obstacleAmount + 1, this.numberAmount + 1, this.score).start();
     }
 };
 

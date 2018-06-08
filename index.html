@@ -4,8 +4,41 @@
     <meta charset="utf-8">
     <title>Flame Dodge</title>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Bubbler+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans|Bubbler+One" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+
+
   </head>
   <body>
+
+    <div class="container">
+      
+          <canvas id="gameCanvas"></canvas>
+      
+          <div id="start-page" class="overlay">
+            <div class="intro-wrap">
+              <h2>Flame Dodge</h2>
+              <p>Instructions</p>
+              <ul>
+                <li> <i class="far fa-circle"></i> Be the bubble</li>
+                <li><i class="fas fa-arrow-circle-up"></i> Use arrow keys to move in all directions</li>
+                <li><i class="fas fa-sort-numeric-down"></i>Collect the numbers.. in order!</li>
+                <li><i class="fas fa-fire"></i>And.. as the game says, dodge those flames!</li>
+              </ul>
+            </div>
+            <button>START THE FIRE</button>
+          </div>
+
+    </div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous">
+    </script>
+
     <script src="js/score.js"></script>
     <script src="js/number.js"></script>
     <script src="js/number-collection.js"></script>

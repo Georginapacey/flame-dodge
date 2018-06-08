@@ -1,10 +1,14 @@
 window.onload = function() {
-    var canvas = document.createElement("canvas");
+    var canvas = document.getElementById("gameCanvas");
 
     canvas.width = 700;
     canvas.height = 700;
 
     document.body.prepend(canvas);
 
-    new Game(canvas, 2, 2).start();
+    document.getElementById("start-page").onclick = function() {
+        document.getElementById("start-page").remove();
+        new Game(canvas, 2, 3).start();
+    };
+    
 }

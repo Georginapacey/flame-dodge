@@ -27,11 +27,8 @@ function Player(ctx) {
 }
 
 Player.prototype.draw = function() {
-        this.drawCount++;
-    //to rotate
-    /*  this.ctx.save();
-    this.ctx.translate(this.x, this.y);
-    this.ctx.rotate(220 * Math.PI/180);  */ 
+    this.drawCount++;
+
 
     this.ctx.drawImage(
         this.img,
@@ -44,9 +41,6 @@ Player.prototype.draw = function() {
         this.w,
         this.h
     )
-
-    // end rotate
-    //this.ctx.restore();
 
 }
 
