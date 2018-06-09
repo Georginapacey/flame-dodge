@@ -11,6 +11,8 @@ function Game(canvasElement, obstacleAmount, numberAmount, pScore) {
     this.intervalId = null;
     this.setKeyboardListeners();
     this.score = pScore == null ? 0 : pScore;
+    this.scoreBox = new ScoreBox(this.ctx);
+
 }
 
 Game.prototype.start = function() {
@@ -21,10 +23,7 @@ Game.prototype.start = function() {
         this.checkGameOver();
         this.nextLevel();
 
-        
         this.moveAll();
-
-        
 
     }.bind(this), 16);
 };
@@ -32,6 +31,7 @@ Game.prototype.start = function() {
 Game.prototype.drawAll = function() {
     this.background.draw();
     this.player.draw();
+    this.scoreBox.draw(this.score);
     this.obstacleCollection.draw();
     this.numberCollection.draw();
 
@@ -47,7 +47,6 @@ Game.prototype.checkGameOver = function() {
 
     if (this.obstacleCollection.checkCollisions(this.player)) {
         this.player.img.frameIndex = 2;
-        this.delay();
         setTimeout(function() { 
             this.gameOver();
         }.bind(this), 100);
@@ -82,7 +81,8 @@ Game.prototype.clear = function() {
                 this.delay();
                 this.numberCollection.numbers.splice(i,1);
                 this.numberCollection.numbersCollected++;
-                this.score++;                
+                this.score++;    
+                console.log(this.score);            
             }
             
         }
