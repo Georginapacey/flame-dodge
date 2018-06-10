@@ -22,7 +22,7 @@ canvas {
   
 }
 
-#start-page button {
+.game-page button {
   background: #0080DA;
   padding: 15px;
   min-width: 100px;
@@ -33,6 +33,10 @@ canvas {
   cursor: pointer;
   font-size: 1em;
   ;
+}
+
+#new-top-score {
+  text-transform: uppercase;
 }
 
 #start-page ul {
@@ -48,12 +52,12 @@ canvas {
 }
 
 
-#start-page h2, button {
+.game-page h1, h2, button {
   font-family: 'Bubblegum Sans', cursive;
   margin: 20px 0;
 }
 
-#start-page button:hover, #start-page button:focus, #start-page button:active {
+.game-page button:hover, .game-page button:focus, .game-page button:active {
   outline:0;
   border: 3px solid white;
 }

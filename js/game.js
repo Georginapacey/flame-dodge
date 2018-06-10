@@ -46,10 +46,11 @@ Game.prototype.moveAll = function() {
 Game.prototype.checkGameOver = function() {
 
     if (this.obstacleCollection.checkCollisions(this.player)) {
-        this.player.img.frameIndex = 2;
+        this.player.img.frames = 1;
+        this.player.img.src = "img/bubble-die.png";
         setTimeout(function() { 
             this.gameOver();
-        }.bind(this), 100);
+        }.bind(this), 200);
         
     }
 };
@@ -57,10 +58,46 @@ Game.prototype.checkGameOver = function() {
 Game.prototype.gameOver = function() {
     clearInterval(this.intervalId);
 
-    if (confirm("GAME OVER! Play again?")) {
-        location.reload();
+    document.getElementById("gameover-page").style.display = "block";
+    if (document.getElementById("gameover-page").style.display === "block") {
+        this.gameOverInfo();
+        
+        document.getElementById("play-again").onclick = function() {
+            console.log(this.canvasElement);
+            location.reload();
+             /* setTimeout(function() { 
+                document.getElementById("gameover-page").remove();
+                
+                Game.prototype.startGameAgain();
+            }.bind(this), 700);  */
+        };
     }
+    /*  if (confirm("GAME OVER! Play again?")) {
+        location.reload();
+    }  */
 };
+
+Game.prototype.gameOverInfo = function() {
+
+    var currentGameScore = this.score;
+    
+    document.getElementById("score").innerText = currentGameScore;
+    var topScore = localStorage.getItem("High score") ? localStorage.getItem("High score") : 0;
+    if (currentGameScore > topScore) {
+        topScore = localStorage.setItem("High score", this.score);
+        document.getElementById("new-top-score").style.display = "inline-block";
+        
+    } else {
+        document.getElementById("top-score").innerText = topScore;
+    }
+    
+
+
+} 
+
+Game.prototype.startGameAgain = function() {
+    new Game(this.canvasElement, 2, 3).start();
+} 
 
 Game.prototype.stop = function() {
     clearInterval(this.intervalId);
@@ -77,12 +114,12 @@ Game.prototype.clear = function() {
             //check if collided number is the first one in the list
             if (i == 0){
                 //later we will use this to change emotion
-                this.player.img.frameIndex = 1;
+                this.player.img.frames = 7;
+                this.player.img.src = "img/happy-bubble-sprite.png";
                 this.delay();
                 this.numberCollection.numbers.splice(i,1);
                 this.numberCollection.numbersCollected++;
                 this.score++;    
-                console.log(this.score);            
             }
             
         }
@@ -90,12 +127,11 @@ Game.prototype.clear = function() {
     
 };
 
-
-
- Game.prototype.delay = function() {
+Game.prototype.delay = function() {
     setTimeout(function() { 
-        this.player.img.frameIndex = 0;
-    }.bind(this), 500);
+        this.player.img.frames = 1;
+        this.player.img.src = "img/bubble.png";
+    }.bind(this), 700);
 } 
 Game.prototype.nextLevel = function() {
     if (this.numberCollection.numbers.length <= 0) {
@@ -104,7 +140,6 @@ Game.prototype.nextLevel = function() {
         new Game(this.canvasElement, this.obstacleAmount + 1, this.numberAmount + 1, this.score).start();
     }
 };
-
 
 Game.prototype.setKeyboardListeners = function() {
     document.onkeydown = function(event) {

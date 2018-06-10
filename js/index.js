@@ -10,5 +10,7 @@ window.onload = function() {
         document.getElementById("start-page").remove();
         new Game(canvas, 2, 3).start();
     };
+
+    
     
 }

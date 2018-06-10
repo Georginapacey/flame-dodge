@@ -17,9 +17,9 @@
       
           <canvas id="gameCanvas"></canvas>
       
-          <div id="start-page" class="overlay">
+          <div id="start-page" class="overlay game-page">
             <div class="intro-wrap">
-              <h2>Flame Dodge</h2>
+              <h1>Flame dodge</h1>
               <p>Instructions</p>
               <ul>
                 <li> <i class="far fa-circle"></i> Be the bubble</li>
@@ -29,6 +29,14 @@
               </ul>
             </div>
             <button>START THE FIRE</button>
+          </div>
+
+          <div id="gameover-page" class="overlay game-page" style="display:none">
+            <h2 id="result">BURN!</h2>
+            <p>Your score: <span id="score"></span></p>
+            <p>High score: <span id="top-score"></span>&nbsp;&nbsp;<span id="new-top-score" style="display:none">-&nbsp;&nbsp; New high score!</span></p>
+            
+            <button id="play-again">PLAY AGAIN</button>
           </div>
 
     </div>

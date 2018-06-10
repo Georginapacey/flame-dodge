@@ -12,12 +12,13 @@ function Player(ctx) {
     this.vy = 0;
 
     this.img = new Image();
-    this.img.src = "img/bubble-sprite.svg";
+    this.img.src = "img/bubble.png";
 
-    this.img.frames = 3;
+    this.img.frames = 1;
     this.img.frameIndex = 0;
 
     this.animateEvery = 5;
+    this.animateSpriteEvery = 100;
     this.initialLimit = 4;
     this.limit = this.initialLimit;
     this.growing = true;
@@ -57,6 +58,7 @@ Player.prototype.move = function() {
     
     if(this.drawCount % this.animateEvery === 0){
         this.animate();
+        this.animateSprite();
 
         this.drawCount = 0;
     } 
@@ -73,6 +75,15 @@ Player.prototype.move = function() {
     }
     if(this.direction == 'left') this.vx = -3
     if(this.direction == 'right') this.vx = 3
+}
+
+Player.prototype.animateSprite = function() {
+
+    if (this.img.frames == 7 && this.img.frameIndex <= this.img.frames) {
+        this.img.frameIndex++;
+    } else {
+        this.img.frameIndex = 0;
+    }
 }
 
 
