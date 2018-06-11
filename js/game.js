@@ -1,9 +1,10 @@
-function Game(canvasElement, obstacleAmount, numberAmount, pScore) {
+function Game(canvasElement, obstacleAmount, numberAmount, pScore, speed) {
     this.ctx = canvasElement.getContext("2d");
     this.background = new Background(this.ctx);
     this.player = new Player(this.ctx);
     this.margin = 20;
-    this.obstacleCollection = new ObstacleCollection(this.ctx, obstacleAmount, this.player, this.margin);
+    this.speed = speed ? speed : 1;
+    this.obstacleCollection = new ObstacleCollection(this.ctx, obstacleAmount, this.player, this.margin, this.speed);
     this.numberCollection = new NumberCollection(this.ctx, numberAmount, this.player, this.margin);
     this.canvasElement = canvasElement;
     this.obstacleAmount = obstacleAmount;
@@ -12,7 +13,6 @@ function Game(canvasElement, obstacleAmount, numberAmount, pScore) {
     this.setKeyboardListeners();
     this.score = pScore == null ? 0 : pScore;
     this.scoreBox = new ScoreBox(this.ctx);
-
 }
 
 Game.prototype.start = function() {
@@ -34,13 +34,11 @@ Game.prototype.drawAll = function() {
     this.scoreBox.draw(this.score);
     this.obstacleCollection.draw();
     this.numberCollection.draw();
-
 }
 
 Game.prototype.moveAll = function() {
     this.player.move();
     this.obstacleCollection.move();
-
 }
 
 Game.prototype.checkGameOver = function() {
@@ -53,6 +51,7 @@ Game.prototype.checkGameOver = function() {
         }.bind(this), 200);
         
     }
+
 };
 
 Game.prototype.gameOver = function() {
@@ -68,7 +67,7 @@ Game.prototype.gameOver = function() {
              /* setTimeout(function() { 
                 document.getElementById("gameover-page").remove();
                 
-                Game.prototype.startGameAgain();
+                new Game(this.canvasElement, 2, 3).start();
             }.bind(this), 700);  */
         };
     }
@@ -91,12 +90,6 @@ Game.prototype.gameOverInfo = function() {
         document.getElementById("top-score").innerText = topScore;
     }
     
-
-
-} 
-
-Game.prototype.startGameAgain = function() {
-    new Game(this.canvasElement, 2, 3).start();
 } 
 
 Game.prototype.stop = function() {
@@ -132,21 +125,28 @@ Game.prototype.delay = function() {
         this.player.img.frames = 1;
         this.player.img.src = "img/bubble.png";
     }.bind(this), 700);
-} 
+}
+
 Game.prototype.nextLevel = function() {
     if (this.numberCollection.numbers.length <= 0) {
         this.stop();
-        //is it ok to call a new Game within game prototype
-        new Game(this.canvasElement, this.obstacleAmount + 1, this.numberAmount + 1, this.score).start();
+        this.fasterLevel();
     }
+};
+
+//conditional to increase speed when you get to level 5
+Game.prototype.fasterLevel = function() {
+    var speedIncrease;
+    if (this.obstacleAmount >= 6) {
+        speedIncrease = 1;
+    } else {
+        speedIncrease = 0;
+    }
+    var newGame = new Game(this.canvasElement, this.obstacleAmount + 1, this.numberAmount + 1, this.score, this.speed + speedIncrease).start();
 };
 
 Game.prototype.setKeyboardListeners = function() {
     document.onkeydown = function(event) {
         this.player.onKeyDown(event.keyCode);
     }.bind(this);
-    document.onkeyup = function(event) {
-        this.player.onKeyUp(event.keyCode);
-    }.bind(this);
-
 };

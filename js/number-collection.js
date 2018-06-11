@@ -11,26 +11,23 @@ function NumberCollection(pCtx, pNumbersCount, pPlayer, pMargin) {
     this.margin = pMargin;
 
     this.createNumbers();
-
 }
 
 NumberCollection.prototype.draw = function() {
     this.numbers.forEach(function(n) {
         n.draw();
     });
-    
 }
 
 NumberCollection.prototype.createNumbers = function() {
     var numberAux;
+
     for (var i = 0; i < this.numbersCount; i++) {
         numberAux = new Number(this.ctx, i + 1);
         while (!this.isFarFromPlayer(numberAux, this.player)) {
             numberAux = new Number(this.ctx, i + 1);
         }
         this.numbers.push(numberAux);
-        
-
     }
     return this.numbers;       
 }

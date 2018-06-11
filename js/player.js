@@ -30,7 +30,6 @@ function Player(ctx) {
 Player.prototype.draw = function() {
     this.drawCount++;
 
-
     this.ctx.drawImage(
         this.img,
         (this.img.frameIndex * this.img.width / this.img.frames),
@@ -46,12 +45,10 @@ Player.prototype.draw = function() {
 }
 
 Player.prototype.checkBoundaries = function(){
-
     if(this.x <= 0) this.x = 0
     if(this.x + this.w >= this.ctx.canvas.width) this.x = this.ctx.canvas.width - this.w;
     if(this.y <= 0) this.y = 0
     if(this.y + this.h >= this.ctx.canvas.height) this.y = this.ctx.canvas.height - this.h;
-
 }
 
 Player.prototype.move = function() {
@@ -67,18 +64,13 @@ Player.prototype.move = function() {
     this.y += this.vy;
     this.x += this.vx;
 
-    if(this.direction == 'up') {
-        this.vy = -3
-    } 
-    if(this.direction == 'down') {
-        this.vy = 3
-    }
+    if(this.direction == 'up') this.vy = -3
+    if(this.direction == 'down') this.vy = 3
     if(this.direction == 'left') this.vx = -3
     if(this.direction == 'right') this.vx = 3
 }
 
 Player.prototype.animateSprite = function() {
-
     if (this.img.frames == 7 && this.img.frameIndex <= this.img.frames) {
         this.img.frameIndex++;
     } else {
@@ -86,72 +78,68 @@ Player.prototype.animateSprite = function() {
     }
 }
 
+//make bubble bubbly- first set grow and shrink values then use them with limit in below animate function
+Player.prototype.ballGrow = function() {
+    this.limit--;
+    this.w++;
+    this.x--;
+    this.w++;
+    this.h--;
+    this.y++;
+    this.h--;
+}
 
- Player.prototype.animate = function() {
+Player.prototype.ballShrink = function() {
+    this.limit++;
+    this.w--;
+    this.x++;
+    this.w--;
+    this.h++;
+    this.y--;
+    this.h++;
+}
+
+Player.prototype.animate = function() {
+    
     if (this.limit > 0 && this.growing) {
-        this.limit--;
-        this.w++;
-        this.x--;
-        this.w++;
-        this.h--;
-        this.y++;
-        this.h--;
+        this.ballGrow();
     } else if (this.limit == 0) {
-        this.limit++;
-        this.w--;
-        this.x++;
-        this.w--;
-        this.h++;
-        this.y--;
-        this.h++;
+        this.ballShrink();
         this.growing = false;
     } else if (this.limit > 0 && this.limit < this.initialLimit && this.growing == false ) {
-        this.limit++;
-        this.w--;
-        this.x++;
-        this.w--;
-        this.h++;
-        this.y--;
-        this.h++;
+        this.ballShrink();
     } else if (this.limit == this.initialLimit && this.growing == false) {
         this.growing = true;
-        this.limit--;
-        this.w++;
-        this.x--;
-        this.w++;
-        this.h--;
-        this.y++;
-        this.h--;
+        this.ballGrow();
     }
+
 }; 
 
+//player movements
 Player.prototype.TOP = 38;
 Player.prototype.DOWN = 40;
 Player.prototype.LEFT = 37;
 Player.prototype.RIGHT = 39;
 
- Player.prototype.onKeyDown = function(code) {
+Player.prototype.onKeyDown = function(code) {
     switch(code) {
         case this.TOP: 
         this.direction = 'up'
-        //this.moveUp();
         break;
         case this.DOWN: 
         this.direction = 'down'
-        //this.moveDown();
         break;
         case this.LEFT: 
         this.direction = 'left'
-        //this.moveLeft();
         break;
         case this.RIGHT: 
         this.direction = 'right'
-        //this.moveRight();
         break;
     }
 } 
 
-Player.prototype.onKeyUp = function(code) {
+//no longer needed because the ball will always move, only the direction changes, this has smoother effect
+/* Player.prototype.onKeyUp = function(code) {
     switch(code) {
         case this.TOP:
         case this.DOWN:
@@ -163,4 +151,4 @@ Player.prototype.onKeyUp = function(code) {
         break;
         
     }
-}
+} */

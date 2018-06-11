@@ -1,4 +1,4 @@
-function ObstacleCollection(pCtx, pObstaclesCount, pPlayer, pMargin) {
+function ObstacleCollection(pCtx, pObstaclesCount, pPlayer, pMargin, pSpeed) {
     this.ctx = pCtx;
 
     this.obstacles = [];
@@ -8,6 +8,8 @@ function ObstacleCollection(pCtx, pObstaclesCount, pPlayer, pMargin) {
     this.player = pPlayer;
 
     this.margin = pMargin;
+
+    this.speed = pSpeed;
 
     this.createObstacles();
 }
@@ -28,7 +30,7 @@ ObstacleCollection.prototype.checkCollisions = function(p) {
     
     return this.obstacles.some(function(o){
         
-        //TO FIX: lots of magic numbers because otherwise the collision happens from too far away
+        //TO FIX: lots of magic numbers because otherwise the collision happens from too far away- SHOULD CONVERT TO TRIANGLE CALC
         var cx = (o.x <= p.x + (p.w - 15)) && (p.x <= o.x + (o.w - 25));
         var cy = (p.y + (p.w - 30) >= o.y) && (p.y <= o.y + (o.h - 25));
         return cx && cy 
@@ -39,9 +41,9 @@ ObstacleCollection.prototype.checkCollisions = function(p) {
 ObstacleCollection.prototype.createObstacles = function() {
     var obstacleAux;
     for (var i = 0; i < this.obstaclesCount; i++) {
-        obstacleAux = new Obstacle(this.ctx);
+        obstacleAux = new Obstacle(this.ctx, this.speed);
         while (!this.isFarFromPlayer(obstacleAux, this.player)) {
-            obstacleAux = new Obstacle(this.ctx);
+            obstacleAux = new Obstacle(this.ctx, this.speed);
         }
         this.obstacles.push(obstacleAux);
     }

@@ -11,6 +11,7 @@ function Background(ctx) {
   }
   
   Background.prototype.draw = function() {
+    
     this.ctx.drawImage(
       this.img,
       this.x,
