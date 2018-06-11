@@ -1,4 +1,4 @@
-function Game(canvasElement, obstacleAmount, numberAmount, pScore, speed) {
+function Game(canvasElement, obstacleAmount, numberAmount, speed, pScore) {
     this.ctx = canvasElement.getContext("2d");
     this.background = new Background(this.ctx);
     this.player = new Player(this.ctx);
@@ -128,12 +128,12 @@ Game.prototype.nextLevel = function() {
 //conditional to increase speed when you get to level 5
 Game.prototype.fasterLevel = function() {
     var speedIncrease;
-    if (this.obstacleAmount >= 6) {
+    if (this.obstacleAmount >= 2) {
         speedIncrease = 1;
     } else {
         speedIncrease = 0;
     }
-    var newGame = new Game(this.canvasElement, this.obstacleAmount + 1, this.numberAmount + 1, this.score, this.speed + speedIncrease).start();
+    var newGame = new Game(this.canvasElement, this.obstacleAmount + 1, this.numberAmount + 1, this.speed + speedIncrease, this.score).start();
 };
 
 Game.prototype.setKeyboardListeners = function() {

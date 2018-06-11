@@ -15,6 +15,6 @@ function startGame(page) {
     
     document.getElementById(page).onclick = function() {
         document.getElementById(page).style.display = "none";
-        new Game(canvas, 2, 2, 2).start();
+        new Game(canvas, 2, 2, 1).start();
     };
 }
