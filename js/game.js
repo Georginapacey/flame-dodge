@@ -61,19 +61,10 @@ Game.prototype.gameOver = function() {
     if (document.getElementById("gameover-page").style.display === "block") {
         this.gameOverInfo();
         
-        document.getElementById("play-again").onclick = function() {
-            console.log(this.canvasElement);
-            location.reload();
-             /* setTimeout(function() { 
-                document.getElementById("gameover-page").remove();
-                
-                new Game(this.canvasElement, 2, 3).start();
-            }.bind(this), 700);  */
-        };
+        startGame("gameover-page");
+ 
     }
-    /*  if (confirm("GAME OVER! Play again?")) {
-        location.reload();
-    }  */
+
 };
 
 Game.prototype.gameOverInfo = function() {
